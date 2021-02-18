@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
 import PokeList from './PokeList.js';
-import Sort from './Sort.js';
 import SearchBar from './SearchBar.js';
 import './SearchPage.css';
 import Spinner from './Spinner.js';
@@ -10,9 +8,10 @@ import request from 'superagent';
 export default class SearchPage extends Component {
   state = {
     pokemon: [],
-    sortOrder: 'ascending',
+    sortOrder: '',
     sortBy: 'pokemon',
     query: '',
+    filter: '',
     loading: false,
   };
 
@@ -37,14 +36,11 @@ export default class SearchPage extends Component {
     this.fetchPokemon();
   };
 
-  handleSortOrder = (e) => {
-    this.setState({ sortOrder: e.target.value });
-  };
-  handleChangeType = (e) => {
+  handleChangeSortBy = (e) => {
     this.setState({ sortBy: e.target.value });
   };
 
-  handleChangeQuery = (e) => {
+  handleInput = (e) => {
     this.setState({
       query: e.target.value,
     });
@@ -56,8 +52,8 @@ export default class SearchPage extends Component {
         <div class="searchTools">
           <SearchBar
             sortBy={this.state.sortBy}
-            handleChangeType={this.handleChangeType}
-            handleChangeQuery={this.handleChangeQuery}
+            handleChangeSortBy={this.handleChangeSortBy}
+            handleInput={this.handleInput}
           />
           <button onClick={this.handleClick}>Gotta Catch `Em All!</button>
         </div>
