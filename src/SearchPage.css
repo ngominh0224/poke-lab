@@ -1,0 +1,16 @@
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+img {
+  width: 140px;
+}
+
+li {
+  list-style: none;
+  border: solid 2px black;
+  background: #ffcb05;
+}
