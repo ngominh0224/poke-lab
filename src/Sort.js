@@ -4,14 +4,15 @@ export default class Sort extends Component {
   render() {
     return (
       <div>
-        <select onChange={this.props.handleSort}>
-          {this.props.options.map((option) => {
-            return (
-              <option value={option} key={option}>
-                {option}
-              </option>
-            );
-          })}
+        Sort:
+        <select
+          onChange={this.props.handleChangeSortBy}
+          value={this.props.sortBy}
+        >
+          <option value="pokemon">Name</option>
+          <option value="shape">Shape</option>
+          <option value="type_1">Type</option>
+          <option value="ability_1">Ability</option>
         </select>
       </div>
     );

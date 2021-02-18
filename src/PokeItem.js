@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
-import './App.css';
-
+//pokemon image, name, relevant data, other attributes
 export default class PokeItem extends Component {
   render() {
+    const {
+      //image destructuring
+      imageItem: { url_image, pokemon, type_1, ability_1, shape },
+    } = this.props;
+
     return (
-      <div>
-        <li>
-          <img
-            alt="string"
-            src={this.props.pokeProp['url_image']}
-            className="poke-images"
-          />
-        </li>
-        <p>Pokemon: {this.props.pokeProp['pokemon']}</p>
-        <p>Shape: {this.props.pokeProp['shape']}</p>
-        <p>Ability: {this.props.pokeProp['ability_1']}</p>
-        <p>Type: {this.props.pokeProp['type_1']}</p>
-      </div>
+      <li className="item">
+        <img alt={pokemon} src={url_image} />
+        <p>Name: {pokemon.charAt(0).toUpperCase() + pokemon.slice(1)}</p>
+        <p>Type: {type_1}</p>
+        <p>Ability: {ability_1}</p>
+        <p>Shape: {shape}</p>
+      </li>
+
+      // <li className='item'>
+      //     <img alt={this.props.imageItem.title} src={this.props.imageItem.url} />
+      //     <p>{this.props.imageItem.title}</p>
+      //     <p>{this.props.imageItem.description}</p>
+      //     <p>{this.props.imageItem.keyword}</p>
+      //     <p>{this.props.imageItem.horns}</p>
+      // </li>
     );
   }
 }
