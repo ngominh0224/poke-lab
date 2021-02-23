@@ -1,31 +1,27 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
+import './header.css';
 
-export default class Header extends Component {
+export default withRouter(
+  class Header extends Component {
     render() {
-        const headerContents={
-            backgroundColor: '#3366b0',
-            height: '5em',
-            display: 'flex',
-            justifyContent:'center',
-        }
-        const linkContainer={
-            display:'flex',
-            alignItems: 'center',
-            width: '12em',
-            justifyContent: 'space-between',
-            fontSize: '1.5rem',
-            fontDecoration: 'none'
-        }
-        return (
-            <div>
-                <div style={headerContents}>
-                    <div style={linkContainer}>
-                        <Link to='./' style={{textDecoration: 'none'}}>Home</Link>
-                        <Link to="./search" style={{textDecoration: 'none'}}>Pokédex</Link>
-                    </div>
-                </div>
-            </div>
-        )
+      return (
+        <header>
+          <div class="headerLink">
+            {this.props.location.pathname !== '/' && (
+              <NavLink exact activeClassName="selected" to="/">
+                HomePage
+              </NavLink>
+            )}
+
+            {this.props.location.pathname !== '/search' && (
+              <NavLink exact activeClassName="selected" to="/search">
+                Pokedex
+              </NavLink>
+            )}
+          </div>
+        </header>
+      );
     }
-}
+  }
+);
