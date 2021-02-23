@@ -13,6 +13,8 @@ export default class SearchPage extends Component {
     query: '',
     filter: '',
     loading: false,
+    currentPage: 1,
+    total: 0,
   };
 
   componentDidMount = async () => {
@@ -23,7 +25,7 @@ export default class SearchPage extends Component {
     this.setState({ loading: true });
 
     const data = await request.get(
-      `https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}&sort=${this.state.sortBy}&perPage=30`
+      `https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}&sort=${this.state.sortBy}&page=${this.state.currentPage}&perPage=30`
     );
 
     this.setState({
@@ -46,7 +48,28 @@ export default class SearchPage extends Component {
     });
   };
 
+  handlePrevious = () => {
+    this.setState({
+      currentPage: this.state.currentPage - 1,
+    });
+  };
+
+  handleNext = () => {
+    this.setState({
+      currentPage: this.state.currentPage + 1,
+    });
+  };
+
+  componentDidUpdate = async (prevProps, prevState) => {
+    const prevPage = prevState.currentPage;
+    const newPage = this.state.currentPage;
+
+    if (prevPage !== newPage) await this.fetchPokemon();
+  };
+
   render() {
+    const maxPage = Math.ceil(this.state.total / 30);
+
     return (
       <div className="sortTools">
         <div class="searchTools">
@@ -56,6 +79,18 @@ export default class SearchPage extends Component {
             handleInput={this.handleInput}
           />
           <button onClick={this.handleClick}>Gotta Catch `Em All!</button>
+          <button
+            onClick={this.handlePrevious}
+            disabled={this.state.currentPage === 1}
+          >
+            Previous
+          </button>
+          <button
+            onClick={this.handleNext}
+            disabled={maxPage === this.state.currentPage}
+          >
+            Next
+          </button>
         </div>
         {this.state.loading ? (
           <Spinner />

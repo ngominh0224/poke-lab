@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-//pokemon image, name, relevant data, other attributes
+import { Link } from 'react-router-dom';
 export default class PokeItem extends Component {
   render() {
     const {
       //image destructuring
-      imageItem: { url_image, pokemon, type_1, ability_1, shape },
+      imageItem: { url_image, pokemon, type_1, ability_1, shape, _id },
     } = this.props;
 
     return (
       <li className="item">
-        <img alt={pokemon} src={url_image} />
-        <p>Name: {pokemon.charAt(0).toUpperCase() + pokemon.slice(1)}</p>
-        <p>Type: {type_1}</p>
-        <p>Ability: {ability_1}</p>
-        <p>Shape: {shape}</p>
+        <Link to={`/pokemon/${_id}`}>
+          <div key={_id}>
+            <img alt={pokemon} src={url_image} />
+            <p>Name: {pokemon.charAt(0).toUpperCase() + pokemon.slice(1)}</p>
+            <p>Type: {type_1}</p>
+            <p>Ability: {ability_1}</p>
+            <p>Shape: {shape}</p>
+          </div>
+        </Link>
       </li>
 
       // <li className='item'>
